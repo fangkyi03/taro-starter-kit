@@ -1,44 +1,41 @@
 import Taro, { Component, login } from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
+import {connect} from '@tarojs/redux'
+import styles from './index.scss'
+import api from '../../command/api';
 
-import './index.scss'
-
-
-
-@connect(({ common, home }) => ({ common, home }))
+@connect(({Index})=>({...Index}))
 class Index extends Component {
 
-    config = {
+  config = {
     navigationBarTitleText: '首页'
   }
 
-  componentWillReceiveProps (nextProps) {
-    console.log(this.props, nextProps)
+  componentDidMount() {
+    console.log('输出cdm', Taro.getApp())
   }
-
+  
   componentWillUnmount () { }
 
   componentDidShow () {
-    console.log(this.props)
+    api.send(this,[
+      api.SysCategoryController_ADMIN().selectBatchCategoryUsingPOST()({
+        onError:(data)=>{
+          console.log('输出网络错误',data)
+        }
+      })
+    ])
   }
 
   componentDidHide () { }
 
   goToDemo = opt => {
-    console.log('opt', opt)
-    Taro.navigateTo({
-      url: '/pages/detail/index'
-    })
   }
 
   render () {
+    console.log('输出',this.props)
     return (
-      <View className='index'>
-        <Button className='add_btn' onClick={this.props.add}>+</Button>
-        <Button className='dec_btn' onClick={this.props.dec}>-</Button>
-        <Button className='dec_btn' onClick={this.props.asyncAdd}>async</Button>
-        <View onClick={this.goToDemo.bind(this, "demo")}><Text>Hello, World</Text></View>
+      <View className={styles.main}>
       </View>
     )
   }

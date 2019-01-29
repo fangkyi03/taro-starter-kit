@@ -3,23 +3,41 @@ import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
 
 import dva from './utils/dva'
-import action from './utils/action'
-import models from './model'
 import Index from './pages/index'
-
 import './app.scss'
+import DevTool from './model/devTool'
+import Fetchs from './model/fetch'
+import NetTool from './command/netTool'
+
+require('./command/initalApi')
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
 if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
   require('nerv-devtools')
 }
+
+const tranModel = modelList => modelList.map(e => ({
+  namespace: e,
+  state: {
+    isShow: true
+  },
+  reducers: {},
+  effect: {},
+  subscriptions: {}
+}))
+
 const dvaApp = dva.createApp({
   initialState: {},
-  models: models,
-  onError(e, dispatch) {
-    dispatch(action('common/error', e))
-  }
+  models: [
+    DevTool,
+    ...tranModel([
+      'Index'
+    ]),
+    Fetchs({
+      netTool: NetTool
+    })
+  ]
 })
 
 const store = dvaApp.getStore()
@@ -29,8 +47,7 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
-      'pages/center/index',
-      'pages/detail/index',
+      'pages/My/index'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -48,14 +65,14 @@ class App extends Component {
         {
           pagePath: "pages/index/index",
           text:"首页",
-          iconPath: "assets/images/tabbar/tab_index.png",
-          selectedIconPath: "assets/images/tabbar/tab_index_selected.png",
+          // iconPath: "assets/images/tabbar/tab_index.png",
+          // selectedIconPath: "assets/images/tabbar/tab_index_selected.png",
         },
         {
-          pagePath: "pages/center/index",
-          text:"个人中心",
-          iconPath: "assets/images/tabbar/tab_user.png",
-          selectedIconPath: "assets/images/tabbar/tab_user_selected.png",
+          pagePath: "pages/My/index",
+          text:"我的",
+          // iconPath: "/images/tabbar/tab_user.png",
+          // selectedIconPath: "/images/tabbar/tab_user_selected.png",
         }
       ]
     }
