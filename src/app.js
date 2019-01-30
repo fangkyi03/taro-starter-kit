@@ -1,8 +1,10 @@
+/* eslint-disable import/no-commonjs */
 import '@tarojs/async-await'
 import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
 
 import dva from './utils/dva'
+import My from './pages/My'
 import Index from './pages/index'
 import './app.scss'
 import DevTool from './model/devTool'
@@ -47,7 +49,6 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
-      'pages/My/index'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -55,27 +56,27 @@ class App extends Component {
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
     },
-    tabBar: {
-      color: "#333333",
-      selectedColor: "#262626",
-      backgroundColor: "#ffce09",
-      borderStyle: "black",
-      position: "bottom",
-      list: [
-        {
-          pagePath: "pages/index/index",
-          text:"首页",
-          // iconPath: "assets/images/tabbar/tab_index.png",
-          // selectedIconPath: "assets/images/tabbar/tab_index_selected.png",
-        },
-        {
-          pagePath: "pages/My/index",
-          text:"我的",
-          // iconPath: "/images/tabbar/tab_user.png",
-          // selectedIconPath: "/images/tabbar/tab_user_selected.png",
-        }
-      ]
-    }
+    // tabBar: {
+    //   color: "#333333",
+    //   selectedColor: "#262626",
+    //   backgroundColor: "#ffce09",
+    //   borderStyle: "black",
+    //   position: "bottom",
+    //   list: [
+    //     {
+    //       pagePath: "pages/index/index",
+    //       text:"首页",
+    //       // iconPath: "assets/images/tabbar/tab_index.png",
+    //       // selectedIconPath: "assets/images/tabbar/tab_index_selected.png",
+    //     },
+    //     {
+    //       pagePath: "pages/My/index",
+    //       text:"我的",
+    //       // iconPath: "/images/tabbar/tab_user.png",
+    //       // selectedIconPath: "/images/tabbar/tab_user_selected.png",
+    //     }
+    //   ]
+    // }
   }
 
   componentDidMount () {}

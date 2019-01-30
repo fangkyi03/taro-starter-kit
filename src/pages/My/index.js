@@ -14,6 +14,7 @@ class My extends Component {
   }
 
   render() {
+    console.log('输出')
     return (
         <View className={styles.main}>
           <Button onClick={this.onButtonDown}>

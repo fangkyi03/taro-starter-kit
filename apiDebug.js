@@ -2,7 +2,7 @@ const axios = require('axios').default;
 const fs = require('fs')
 
 // 使用之前 将这个url地址 替换为自己后台swagger网站的地址
-const baseUrl = "http://192.167.5.112:7041";
+const baseUrl = "http://nongqibang.com:7041";
 
 const control = new Set([])
 
@@ -105,7 +105,7 @@ function getInitalNetWorkData(urlAddress) {
 let urlText = "";
 let funArr = []
 function getNetInfo(filterData, excludeData) {
-  axios.get("http://192.167.5.112:7041/swagger-resources")
+  axios.get("http://nongqibang.com:7041/swagger-resources")
     .then(async (e) => {
       let filterResult = e.data.filter((ed) => filterData.length > 0 ? filterData.some((ef) => ed.url.indexOf(ef) !== -1) : true)
       for (let i = 0; i < filterResult.length; i++) {
